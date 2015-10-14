@@ -49,7 +49,7 @@ var hexGrid = {
             coordX += this.sector.width;
 
             // Check for horizontal overflow
-            if(coordX > this.canvas.width) {
+            if((coordX+this.sector.width) > this.canvas.width) {
                 // Set the X coordinate back to zero
                 coordX = 0;
 
