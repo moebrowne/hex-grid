@@ -62,9 +62,10 @@ var hexGrid = {
 
             // Calculate the text positions
 			var textCoordX = (coordX + (this.sector.width / 2));
-			var textCoordY = (coordY - (this.sector.height / 2) + 4);
+			var textCoordY = (coordY + (this.sector.height / 2) + 4);
 
             // Draw the text
+            this.context.fillStyle = '#f1f1f1';
             this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), textCoordX, textCoordY);
         }
     }
