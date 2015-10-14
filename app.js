@@ -44,12 +44,12 @@ var hexGrid = {
             // Calculate the position for the next node
             coordX += this.sector.width;
 
-            // Check for right hand sector overflow
+            // Check for horizontal overflow
             if(coordX > this.canvas.width) {
-                // Set the X coordinate to the left most side
+                // Set the X coordinate back to zero
                 coordX = 0;
 
-                // Jump to the next row
+                // Jump one row down
                 coordY += this.sector.height
             }
 
