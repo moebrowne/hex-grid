@@ -75,7 +75,7 @@ var hexGrid = {
                 var textCoordY = (coordY + (this.sector.height / 2) + 4);
 
                 // Draw the text
-                this.context.fillStyle = '#f1f1f1';
+                this.context.fillStyle = '#D0D0D0';
                 this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
 
                 // Calculate the position for the next node
