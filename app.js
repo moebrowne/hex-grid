@@ -59,7 +59,13 @@ var hexGrid = {
 
             this.context.fillStyle = this.colours[getRandomIntInclusive(0,9)];
             this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
-            this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), (coordX+(this.sector.width/2)), (coordY-(this.sector.height/2)+4));
+
+            // Calculate the text positions
+			var textCoordX = (coordX + (this.sector.width / 2));
+			var textCoordY = (coordY - (this.sector.height / 2) + 4);
+
+            // Draw the text
+            this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), textCoordX, textCoordY);
         }
     }
 
