@@ -32,6 +32,9 @@ var hexGrid = {
         // Get a drawing context
         this.context = this.canvas.getContext('2d');
 
+        // Set the text alignment
+        this.context.textAlign = 'center';
+
         this.drawSectors();
     },
 
@@ -55,7 +58,7 @@ var hexGrid = {
 
             this.context.fillStyle = this.colours[getRandomIntInclusive(0,9)];
             this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
-            this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), coordX, coordY);
+            this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), (coordX+(this.sector.width/2)), (coordY-(this.sector.height/2)+4));
         }
     }
 
