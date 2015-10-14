@@ -39,7 +39,7 @@ var hexGrid = {
 
         var coordX = 0, coordY = 0;
 
-        for(i=0;i<3000;i++) {
+        while(coordY < this.canvas.height) {
 
             // Calculate the position for the next node
             coordX += this.sector.width;
@@ -51,12 +51,6 @@ var hexGrid = {
 
                 // Jump one row down
                 coordY += this.sector.height
-            }
-
-            // Check for vertical overflow
-            if(coordY > this.canvas.height) {
-                // Out of canvas!
-                break;
             }
 
             //var char = hexGrid.chars.charAt(getRandomIntInclusive(0,15));
