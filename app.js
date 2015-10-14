@@ -53,6 +53,12 @@ var hexGrid = {
                 coordY += this.sector.height
             }
 
+            // Check for vertical overflow
+            if(coordY > this.canvas.height) {
+                // Out of canvas!
+                break;
+            }
+
             //var char = hexGrid.chars.charAt(getRandomIntInclusive(0,15));
 
             this.context.fillStyle = hexGrid.colours[getRandomIntInclusive(0,9)];
