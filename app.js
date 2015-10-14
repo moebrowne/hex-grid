@@ -43,6 +43,10 @@ var hexGrid = {
         return this.colours[getRandomIntInclusive(0, (this.colours.length - 1))];
     },
 
+	randomCharacter: function () {
+        return this.chars.charAt(getRandomIntInclusive(0, (this.chars.length - 1)));
+    },
+
     drawSectors: function() {
 
         var coordX = 0, coordY = 0;
@@ -70,7 +74,7 @@ var hexGrid = {
 
             // Draw the text
             this.context.fillStyle = '#f1f1f1';
-            this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), textCoordX, textCoordY);
+            this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
         }
     }
 
