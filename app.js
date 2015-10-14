@@ -1,41 +1,53 @@
 
-var colours = [];
-colours[0] = '#dddfde';
-colours[1] = '#e7e9e6';
-colours[2] = '#f2f2f2';
-colours[3] = '#eaeaea';
-colours[4] = '#ebebeb';
-colours[5] = '#e8e8e8';
-colours[6] = '#e5e5e5';
-colours[7] = '#e0e0e0';
-colours[8] = '#ededed';
-colours[9] = '#e1e1df';
 
-var chars = '1234567890ABCDEF';
+var hexGrid = {
 
+    colours: [
+        '#dddfde',
+        '#e7e9e6',
+        '#f2f2f2',
+        '#eaeaea',
+        '#ebebeb',
+        '#e8e8e8',
+        '#e5e5e5',
+        '#e0e0e0',
+        '#ededed',
+        '#e1e1df'
+    ],
 
-var cont = $('#cont');
+    chars: '1234567890ABCDEF',
 
-for(i=0;i<3000;i++) {
-    cont.append('<div class="sector"/>');
-}
+    drawSectors: function() {
 
-var sectors = cont.children('.sector');
+        var cont = $('#cont');
 
-sectors.each(function() {
+        for(i=0;i<3000;i++) {
+            cont.append('<div class="sector"/>');
+        }
 
-    var char = chars.charAt(getRandomIntInclusive(0,15));
-    var colour = colours[getRandomIntInclusive(0,9)];
+        var sectors = cont.children('.sector');
 
-    if (char === 'F') {
-        //colour = '#E94111';
+        sectors.each(function() {
+
+            var char = hexGrid.chars.charAt(getRandomIntInclusive(0,15));
+            var colour = hexGrid.colours[getRandomIntInclusive(0,9)];
+
+            if (char === 'F') {
+                //colour = '#E94111';
+            }
+
+            $(this).html(char);
+
+            $(this).css('background-color',colour);
+        });
     }
 
-    $(this).html(char);
-
-    $(this).css('background-color',colour);
-});
+};
 
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+$(function() {
+    hexGrid.drawSectors();
+});
