@@ -14,6 +14,11 @@ var hexGrid = {
         '#e1e1df'
     ],
 
+    sector: {
+        width: 18, //px
+        height: 25 //px
+    },
+
     context: null,
     canvas: null,
 
@@ -26,31 +31,25 @@ var hexGrid = {
 
         // Get a drawing context
         this.context = this.canvas.getContext('2d');
+
+        this.drawSectors();
     },
 
     drawSectors: function() {
 
-        var cont = $('#cont');
+        var coordX = 0, coordY = 0;
 
         for(i=0;i<3000;i++) {
-            cont.append('<div class="sector"/>');
+
+            // Calculate the position for the next node
+            coordX += this.sector.width;
+            //coordY += this.sector.height;
+
+            //var char = hexGrid.chars.charAt(getRandomIntInclusive(0,15));
+
+            this.context.fillStyle = hexGrid.colours[getRandomIntInclusive(0,9)];
+            this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
         }
-
-        var sectors = cont.children('.sector');
-
-        sectors.each(function() {
-
-            var char = hexGrid.chars.charAt(getRandomIntInclusive(0,15));
-            var colour = hexGrid.colours[getRandomIntInclusive(0,9)];
-
-            if (char === 'F') {
-                //colour = '#E94111';
-            }
-
-            $(this).html(char);
-
-            $(this).css('background-color',colour);
-        });
     }
 
 };
@@ -58,7 +57,3 @@ var hexGrid = {
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-$(function() {
-    hexGrid.drawSectors();
-});
