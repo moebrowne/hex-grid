@@ -51,30 +51,31 @@ var hexGrid = {
 
         var coordX = 0, coordY = 0;
 
-        while(coordY < this.canvas.height) {
+        // Loop until all available vertical space is taken
+        while((coordY + this.sector.height) < this.canvas.height) {
 
-            // Check for horizontal overflow
-            if((coordX+this.sector.width) > this.canvas.width) {
-                // Set the X coordinate back to zero
-                coordX = 0;
+            // Loop until all available horizontal space is taken
+            while ((coordX + this.sector.width) < this.canvas.width) {
 
-                // Jump one row down
-                coordY += this.sector.height
+                this.context.fillStyle = this.randomColour();
+                this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
+
+                // Calculate the text positions
+                var textCoordX = (coordX + (this.sector.width / 2));
+                var textCoordY = (coordY + (this.sector.height / 2) + 4);
+
+                // Draw the text
+                this.context.fillStyle = '#f1f1f1';
+                this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
+
+                // Calculate the position for the next node
+                coordX += this.sector.width;
             }
+            // Set the X coordinate back to zero
+            coordX = 0;
 
-            this.context.fillStyle = this.randomColour();
-            this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
-
-            // Calculate the text positions
-			var textCoordX = (coordX + (this.sector.width / 2));
-			var textCoordY = (coordY + (this.sector.height / 2) + 4);
-
-            // Draw the text
-            this.context.fillStyle = '#f1f1f1';
-            this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
-
-            // Calculate the position for the next node
-            coordX += this.sector.width;
+            // Jump one row down
+            coordY += this.sector.height
         }
     }
 
