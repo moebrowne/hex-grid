@@ -17,6 +17,8 @@ var hexGrid = {
     context: null,
     canvas: null,
 
+    chars: '1234567890ABCDEF',
+
     init: function(canvasObject) {
 
         // Add the canvas object to the hexGrid object
@@ -25,8 +27,6 @@ var hexGrid = {
         // Get a drawing context
         this.context = this.canvas.getContext('2d');
     },
-
-    chars: '1234567890ABCDEF',
 
     drawSectors: function() {
 
