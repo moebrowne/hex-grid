@@ -53,9 +53,9 @@ var hexGrid = {
                 coordY += this.sector.height
             }
 
-            this.context.fillStyle = hexGrid.colours[getRandomIntInclusive(0,9)];
+            this.context.fillStyle = this.colours[getRandomIntInclusive(0,9)];
             this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
-            this.context.fillText(hexGrid.chars.charAt(getRandomIntInclusive(0,15)), coordX, coordY);
+            this.context.fillText(this.chars.charAt(getRandomIntInclusive(0,15)), coordX, coordY);
         }
     }
 
