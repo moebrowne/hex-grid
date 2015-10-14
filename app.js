@@ -53,9 +53,6 @@ var hexGrid = {
 
         while(coordY < this.canvas.height) {
 
-            // Calculate the position for the next node
-            coordX += this.sector.width;
-
             // Check for horizontal overflow
             if((coordX+this.sector.width) > this.canvas.width) {
                 // Set the X coordinate back to zero
@@ -75,6 +72,9 @@ var hexGrid = {
             // Draw the text
             this.context.fillStyle = '#f1f1f1';
             this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
+
+            // Calculate the position for the next node
+            coordX += this.sector.width;
         }
     }
 
