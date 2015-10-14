@@ -39,6 +39,10 @@ var hexGrid = {
         this.drawSectors();
     },
 
+	randomColour: function () {
+        return this.colours[getRandomIntInclusive(0, (this.colours.length - 1))];
+    },
+
     drawSectors: function() {
 
         var coordX = 0, coordY = 0;
@@ -57,7 +61,7 @@ var hexGrid = {
                 coordY += this.sector.height
             }
 
-            this.context.fillStyle = this.colours[getRandomIntInclusive(0,(this.colours.length-1))];
+            this.context.fillStyle = this.randomColour();
             this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
 
             // Calculate the text positions
