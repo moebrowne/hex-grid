@@ -14,11 +14,13 @@ var hexGrid = {
         '#e1e1df'
     ],
 
+    // The origin of the canvas
     origin: {
         x: 0,
         y: 0
     },
 
+    // Dimensions of each sector
     sector: {
         width: 18, //px
         height: 25 //px
@@ -29,6 +31,7 @@ var hexGrid = {
 
     chars: '1234567890ABCDEF',
 
+    // Set everything up
     init: function(canvasObject) {
 
         // Add the canvas object to the hexGrid object
@@ -41,6 +44,7 @@ var hexGrid = {
         this.context.textAlign = 'center';
         this.context.font = '11px Ubuntu';
 
+        // Render the sectors onto the canvas
         this.drawSectors();
     },
 
