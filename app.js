@@ -43,7 +43,15 @@ var hexGrid = {
 
             // Calculate the position for the next node
             coordX += this.sector.width;
-            //coordY += this.sector.height;
+
+            // Check for right hand sector overflow
+            if(coordX > this.canvas.width) {
+                // Set the X coordinate to the left most side
+                coordX = 0;
+
+                // Jump to the next row
+                coordY += this.sector.height
+            }
 
             //var char = hexGrid.chars.charAt(getRandomIntInclusive(0,15));
 
