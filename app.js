@@ -14,6 +14,11 @@ var hexGrid = {
         '#e1e1df'
     ],
 
+    origin: {
+        x: 0,
+        y: 0
+    },
+
     sector: {
         width: 18, //px
         height: 25 //px
@@ -49,7 +54,8 @@ var hexGrid = {
 
     drawSectors: function() {
 
-        var coordX = 0, coordY = 0;
+        // Set initial coordinates to the origin of the canvas
+        var coordX = this.origin.x, coordY = this.origin.y;
 
         // Loop until all available vertical space is taken
         while((coordY + this.sector.height) < this.canvas.height) {
