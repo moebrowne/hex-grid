@@ -82,7 +82,7 @@ var hexGrid = {
                 coordX += this.sector.width;
             }
             // Set the X coordinate back to zero
-            coordX = 0;
+            coordX = this.origin.x;
 
             // Jump one row down
             coordY += this.sector.height
