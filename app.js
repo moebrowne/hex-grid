@@ -34,6 +34,7 @@ var hexGrid = {
 
         // Set the text alignment
         this.context.textAlign = 'center';
+        this.context.font = '11px Ubuntu';
 
         this.drawSectors();
     },
