@@ -31,6 +31,10 @@ var hexGrid = {
 
     chars: '1234567890ABCDEF',
 
+    // Whether to make sectors randomly change, and on what time period
+    randomChange: true,
+    changeInterval: 100, //ms
+
     // Set everything up
     init: function(canvasObject) {
 
@@ -46,6 +50,14 @@ var hexGrid = {
 
         // Render the sectors onto the canvas
         this.drawSectors();
+
+        // Change sectors randomly
+        if (this.randomChange) {
+            window.setInterval(function () {
+                var position = this.getRandomSectorLocation();
+                this.drawSector(position.x, position.y);
+            }.bind(this), this.changeInterval);
+        }
     },
 
 	randomColour: function () {
@@ -67,16 +79,8 @@ var hexGrid = {
             // Loop until all available horizontal space is taken
             while ((coordX + this.sector.width) < this.canvas.width) {
 
-                this.context.fillStyle = this.randomColour();
-                this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
-
-                // Calculate the text positions
-                var textCoordX = (coordX + (this.sector.width / 2));
-                var textCoordY = (coordY + (this.sector.height / 2) + 4);
-
-                // Draw the text
-                this.context.fillStyle = '#D0D0D0';
-                this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
+                // Draw the individual sector
+                this.drawSector(coordX, coordY);
 
                 // Calculate the position for the next node
                 coordX += this.sector.width;
@@ -87,6 +91,26 @@ var hexGrid = {
             // Jump one row down
             coordY += this.sector.height
         }
+    },
+
+    drawSector: function(coordX, coordY) {
+        this.context.fillStyle = this.randomColour();
+        this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
+
+        // Calculate the text positions
+        var textCoordX = (coordX + (this.sector.width / 2));
+        var textCoordY = (coordY + (this.sector.height / 2) + 4);
+
+        // Draw the text
+        this.context.fillStyle = '#D0D0D0';
+        this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
+    },
+
+    getRandomSectorLocation: function() {
+        return {
+            x: this.sector.width * (Math.floor(Math.random() * (this.canvas.width / this.sector.width)) - 1),
+            y: this.sector.height * (Math.floor(Math.random() * (this.canvas.height / this.sector.height)) - 1)
+        };
     }
 
 };
