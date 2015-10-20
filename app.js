@@ -44,6 +44,9 @@ var hexGrid = {
         // Get a drawing context
         this.context = this.canvas.getContext('2d');
 
+        // Size the grid so it fills the document
+        this.sizeToDocument();
+
         // Set the text alignment
         this.context.textAlign = 'center';
         this.context.font = '11px Ubuntu';
@@ -60,6 +63,13 @@ var hexGrid = {
         }
     },
 
+    sizeToDocument: function() {
+        // Get the size of the window
+        this.canvas.width = document.documentElement.clientWidth;
+        this.canvas.height = document.documentElement.clientHeight;
+
+    },
+
 	randomColour: function () {
         return this.colours[getRandomIntInclusive(0, (this.colours.length - 1))];
     },
@@ -74,10 +84,10 @@ var hexGrid = {
         var coordX = this.origin.x, coordY = this.origin.y;
 
         // Loop until all available vertical space is taken
-        while((coordY + this.sector.height) < this.canvas.height) {
+        while(coordY < this.canvas.height) {
 
             // Loop until all available horizontal space is taken
-            while ((coordX + this.sector.width) < this.canvas.width) {
+            while (coordX < this.canvas.width) {
 
                 // Draw the individual sector
                 this.drawSector(coordX, coordY);
