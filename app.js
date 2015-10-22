@@ -29,8 +29,10 @@ var hexGrid = {
     context: null,
     canvas: null,
 
-    chars: '1234567890ABCDEF',
-    badChars: '!£$%^&*',
+    chars:  {
+        'good': '1234567890ABCDEF',
+        'corrupt': '!£$%^&*@~#?/\\¬<>+='
+    },
 
     // Whether to make sectors randomly change, and on what time period
     randomChange: true,
@@ -75,12 +77,14 @@ var hexGrid = {
         return this.colours[getRandomIntInclusive(0, (this.colours.length - 1))];
     },
 
-	randomCharacter: function () {
-        return this.chars.charAt(getRandomIntInclusive(0, (this.chars.length - 1)));
-    },
+	randomCharacter: function (charset) {
 
-	randomBadCharacter: function () {
-        return this.badChars.charAt(getRandomIntInclusive(0, (this.badChars.length - 1)));
+        // Set the default charset if its not been defined or cant be found
+        if (typeof charset === 'undefined' || typeof this.chars[charset] === 'undefined') {
+            charset = 'good';
+        }
+
+        return this.chars[charset].charAt(getRandomIntInclusive(0, (this.chars[charset].length - 1)));
     },
 
     drawSectors: function() {
@@ -115,6 +119,7 @@ var hexGrid = {
         // Determine the colours for this sector
         var colourSector = (corruptSector) ? '#EDCED1':this.randomColour();
         var colourText = (corruptSector) ? '#FFFFFF':'#D0D0D0';
+        var textCharset = (corruptSector) ? 'corrupt':'good';
 
         this.context.fillStyle = colourSector;
         this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
@@ -125,7 +130,7 @@ var hexGrid = {
 
         // Draw the text
         this.context.fillStyle = colourText;
-        this.context.fillText((corruptSector) ? this.randomBadCharacter():this.randomCharacter(), textCoordX, textCoordY);
+        this.context.fillText(this.randomCharacter(textCharset), textCoordX, textCoordY);
     },
 
     getRandomSectorLocation: function() {
