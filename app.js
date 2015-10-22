@@ -30,6 +30,7 @@ var hexGrid = {
     canvas: null,
 
     chars: '1234567890ABCDEF',
+    badChars: '!£$%^&*',
 
     // Whether to make sectors randomly change, and on what time period
     randomChange: true,
@@ -78,6 +79,10 @@ var hexGrid = {
         return this.chars.charAt(getRandomIntInclusive(0, (this.chars.length - 1)));
     },
 
+	randomBadCharacter: function () {
+        return this.badChars.charAt(getRandomIntInclusive(0, (this.badChars.length - 1)));
+    },
+
     drawSectors: function() {
 
         // Set initial coordinates to the origin of the canvas
@@ -104,7 +109,10 @@ var hexGrid = {
     },
 
     drawSector: function(coordX, coordY) {
-        this.context.fillStyle = this.randomColour();
+
+        var badSector = (getRandomIntInclusive(0, 1000) === 0);
+
+        this.context.fillStyle = (badSector) ? '#EDCED1':this.randomColour();
         this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
 
         // Calculate the text positions
@@ -112,8 +120,8 @@ var hexGrid = {
         var textCoordY = (coordY + (this.sector.height / 2) + 4);
 
         // Draw the text
-        this.context.fillStyle = '#D0D0D0';
-        this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
+        this.context.fillStyle = (badSector) ? '#FFFFFF':'#D0D0D0';
+        this.context.fillText((badSector) ? this.randomBadCharacter():this.randomCharacter(), textCoordX, textCoordY);
     },
 
     getRandomSectorLocation: function() {
