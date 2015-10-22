@@ -112,7 +112,11 @@ var hexGrid = {
 
         var corruptSector = (getRandomIntInclusive(0, 1000) === 0);
 
-        this.context.fillStyle = (corruptSector) ? '#EDCED1':this.randomColour();
+        // Determine the colours for this sector
+        var colourSector = (corruptSector) ? '#EDCED1':this.randomColour();
+        var colourText = (corruptSector) ? '#FFFFFF':'#D0D0D0';
+
+        this.context.fillStyle = colourSector;
         this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
 
         // Calculate the text positions
@@ -120,7 +124,7 @@ var hexGrid = {
         var textCoordY = (coordY + (this.sector.height / 2) + 4);
 
         // Draw the text
-        this.context.fillStyle = (corruptSector) ? '#FFFFFF':'#D0D0D0';
+        this.context.fillStyle = colourText;
         this.context.fillText((corruptSector) ? this.randomBadCharacter():this.randomCharacter(), textCoordX, textCoordY);
     },
 
