@@ -61,7 +61,10 @@ var hexGrid = {
         if (this.randomChange) {
             window.setInterval(function () {
                 var position = this.getRandomSectorLocation();
-                this.drawSector(position.x, position.y);
+
+                var corrupt = (getRandomIntInclusive(0, 1000) === 0);
+
+                this.drawSector(position.x, position.y, corrupt);
             }.bind(this), this.changeInterval);
         }
     },
@@ -112,9 +115,9 @@ var hexGrid = {
         }
     },
 
-    drawSector: function(coordX, coordY) {
+    drawSector: function(coordX, coordY, corrupt) {
 
-        var corruptSector = (getRandomIntInclusive(0, 1000) === 0);
+        var corruptSector = (typeof corrupt === 'boolean' && corrupt === true);
 
         // Determine the colours for this sector
         var colourSector = (corruptSector) ? '#EDCED1':this.randomColour();
