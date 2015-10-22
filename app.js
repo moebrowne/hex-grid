@@ -110,9 +110,9 @@ var hexGrid = {
 
     drawSector: function(coordX, coordY) {
 
-        var badSector = (getRandomIntInclusive(0, 1000) === 0);
+        var corruptSector = (getRandomIntInclusive(0, 1000) === 0);
 
-        this.context.fillStyle = (badSector) ? '#EDCED1':this.randomColour();
+        this.context.fillStyle = (corruptSector) ? '#EDCED1':this.randomColour();
         this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
 
         // Calculate the text positions
@@ -120,8 +120,8 @@ var hexGrid = {
         var textCoordY = (coordY + (this.sector.height / 2) + 4);
 
         // Draw the text
-        this.context.fillStyle = (badSector) ? '#FFFFFF':'#D0D0D0';
-        this.context.fillText((badSector) ? this.randomBadCharacter():this.randomCharacter(), textCoordX, textCoordY);
+        this.context.fillStyle = (corruptSector) ? '#FFFFFF':'#D0D0D0';
+        this.context.fillText((corruptSector) ? this.randomBadCharacter():this.randomCharacter(), textCoordX, textCoordY);
     },
 
     getRandomSectorLocation: function() {
