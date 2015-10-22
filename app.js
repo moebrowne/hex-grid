@@ -29,11 +29,15 @@ var hexGrid = {
     context: null,
     canvas: null,
 
-    chars: '1234567890ABCDEF',
+    chars:  {
+        'good': '1234567890ABCDEF',
+        'corrupt': '!£$%^&*@~#?/\\¬<>+='
+    },
 
     // Whether to make sectors randomly change, and on what time period
     randomChange: true,
     changeInterval: 100, //ms
+    corruptionPercentage: 3, //%
 
     // Set everything up
     init: function(canvasObject) {
@@ -58,7 +62,11 @@ var hexGrid = {
         if (this.randomChange) {
             window.setInterval(function () {
                 var position = this.getRandomSectorLocation();
-                this.drawSector(position.x, position.y);
+
+                // Determine whether this sector is corrupt or not
+                var corrupt = (getRandomIntInclusive(0, 100) < this.corruptionPercentage);
+
+                this.drawSector(position.x, position.y, corrupt);
             }.bind(this), this.changeInterval);
         }
     },
@@ -74,8 +82,14 @@ var hexGrid = {
         return this.colours[getRandomIntInclusive(0, (this.colours.length - 1))];
     },
 
-	randomCharacter: function () {
-        return this.chars.charAt(getRandomIntInclusive(0, (this.chars.length - 1)));
+	randomCharacter: function (charset) {
+
+        // Set the default charset if its not been defined or cant be found
+        if (typeof charset === 'undefined' || typeof this.chars[charset] === 'undefined') {
+            charset = 'good';
+        }
+
+        return this.chars[charset].charAt(getRandomIntInclusive(0, (this.chars[charset].length - 1)));
     },
 
     drawSectors: function() {
@@ -103,8 +117,16 @@ var hexGrid = {
         }
     },
 
-    drawSector: function(coordX, coordY) {
-        this.context.fillStyle = this.randomColour();
+    drawSector: function(coordX, coordY, corrupt) {
+
+        var corruptSector = (typeof corrupt === 'boolean' && corrupt === true);
+
+        // Determine the colours for this sector
+        var colourSector = (corruptSector) ? '#EDCED1':this.randomColour();
+        var colourText = (corruptSector) ? '#FFFFFF':'#D0D0D0';
+        var textCharset = (corruptSector) ? 'corrupt':'good';
+
+        this.context.fillStyle = colourSector;
         this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
 
         // Calculate the text positions
@@ -112,8 +134,8 @@ var hexGrid = {
         var textCoordY = (coordY + (this.sector.height / 2) + 4);
 
         // Draw the text
-        this.context.fillStyle = '#D0D0D0';
-        this.context.fillText(this.randomCharacter(), textCoordX, textCoordY);
+        this.context.fillStyle = colourText;
+        this.context.fillText(this.randomCharacter(textCharset), textCoordX, textCoordY);
     },
 
     getRandomSectorLocation: function() {
