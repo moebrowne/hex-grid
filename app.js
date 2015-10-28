@@ -1,44 +1,48 @@
 
 var hexGrid = {
 
-    colours: [
-        '#dddfde',
-        '#e7e9e6',
-        '#f2f2f2',
-        '#eaeaea',
-        '#ebebeb',
-        '#e8e8e8',
-        '#e5e5e5',
-        '#e0e0e0',
-        '#ededed',
-        '#e1e1df'
-    ],
-
     // The origin of the canvas
     origin: {
         x: 0,
         y: 0
     },
 
-    // Dimensions of each sector
-    sector: {
-        width: 18, //px
-        height: 25 //px
-    },
-
     context: null,
     canvas: null,
 
-    chars:  {
-        'good': '1234567890ABCDEF',
-        'corrupt': '!£$%^&*@~#?/\\¬<>+='
-    },
-
     // Whether to make sectors randomly change, and on what time period
-    randomChange: true,
-    changeInterval: 100, //ms
-    corruption: true,
-    corruptionPercentage: 3, //%
+    options: {
+
+        randomChange: true,
+        changeInterval: 100, //ms
+
+        corruption: true,
+        corruptionPercentage: 3, //%
+
+        chars:  {
+            'good': '1234567890ABCDEF',
+            'corrupt': '!£$%^&*@~#?/\\¬<>+='
+        },
+
+        // Dimensions of each sector
+        sector: {
+            width: 18, //px
+            height: 25, //px
+
+            colours: [
+                '#dddfde',
+                '#e7e9e6',
+                '#f2f2f2',
+                '#eaeaea',
+                '#ebebeb',
+                '#e8e8e8',
+                '#e5e5e5',
+                '#e0e0e0',
+                '#ededed',
+                '#e1e1df'
+            ],
+        },
+    },
 
     // Set everything up
     init: function(canvasObject) {
