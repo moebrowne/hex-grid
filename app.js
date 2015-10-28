@@ -10,29 +10,32 @@ var hexGrid = {
     context: null,
     canvas: null,
 
-    // Whether to make sectors randomly change, and on what time period
     options: {
 
+        // Whether to make sectors randomly change, and on what time period
         randomise: {
             enable: true,
             interval: 100 //ms
         },
 
+        // Whether some of the sectors should appear as 'corrupt'
         corruption: {
             enabled: true,
             percentage: 3 //%
         },
 
+        // The set of chars that can appear in the sectors
         chars:  {
             'good': '1234567890ABCDEF',
             'corrupt': '!£$%^&*@~#?/\\¬<>+='
         },
 
-        // Dimensions of each sector
         sector: {
+            // Dimensions of each sector
             width: 18, //px
             height: 25, //px
 
+            // Possible colours of each sector, randomly chosen
             colours: [
                 '#dddfde',
                 '#e7e9e6',
