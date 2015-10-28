@@ -13,8 +13,10 @@ var hexGrid = {
     // Whether to make sectors randomly change, and on what time period
     options: {
 
-        randomChange: true,
-        changeInterval: 100, //ms
+        randomise: {
+            enable: true,
+            interval: 100 //ms
+        },
 
         corruption: {
             enabled: true,
@@ -66,7 +68,7 @@ var hexGrid = {
         this.drawSectors();
 
         // Change sectors randomly
-        if (this.options.randomChange) {
+        if (this.options.randomise.enable) {
             window.setInterval(function () {
                 var position = this.getRandomSectorLocation();
 
@@ -74,7 +76,7 @@ var hexGrid = {
                 var corrupt = (this.options.corruption.enabled === true && getRandomIntInclusive(0, 100) < this.options.corruption.percentage);
 
                 this.drawSector(position.x, position.y, corrupt);
-            }.bind(this), this.options.changeInterval);
+            }.bind(this), this.options.randomise.interval);
         }
     },
 
