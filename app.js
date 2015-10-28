@@ -37,6 +37,7 @@ var hexGrid = {
     // Whether to make sectors randomly change, and on what time period
     randomChange: true,
     changeInterval: 100, //ms
+    corruption: true,
     corruptionPercentage: 3, //%
 
     // Set everything up
@@ -64,7 +65,7 @@ var hexGrid = {
                 var position = this.getRandomSectorLocation();
 
                 // Determine whether this sector is corrupt or not
-                var corrupt = (getRandomIntInclusive(0, 100) < this.corruptionPercentage);
+                var corrupt = (this.corruption === true && getRandomIntInclusive(0, 100) < this.corruptionPercentage);
 
                 this.drawSector(position.x, position.y, corrupt);
             }.bind(this), this.changeInterval);
