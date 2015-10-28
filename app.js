@@ -64,15 +64,15 @@ var hexGrid = {
         this.drawSectors();
 
         // Change sectors randomly
-        if (this.randomChange) {
+        if (this.options.randomChange) {
             window.setInterval(function () {
                 var position = this.getRandomSectorLocation();
 
                 // Determine whether this sector is corrupt or not
-                var corrupt = (this.corruption === true && getRandomIntInclusive(0, 100) < this.corruptionPercentage);
+                var corrupt = (this.options.corruption === true && getRandomIntInclusive(0, 100) < this.options.corruptionPercentage);
 
                 this.drawSector(position.x, position.y, corrupt);
-            }.bind(this), this.changeInterval);
+            }.bind(this), this.options.changeInterval);
         }
     },
 
@@ -84,17 +84,17 @@ var hexGrid = {
     },
 
 	randomColour: function () {
-        return this.colours[getRandomIntInclusive(0, (this.colours.length - 1))];
+        return this.options.sector.colours[getRandomIntInclusive(0, (this.options.sector.colours.length - 1))];
     },
 
 	randomCharacter: function (charset) {
 
         // Set the default charset if its not been defined or cant be found
-        if (typeof charset === 'undefined' || typeof this.chars[charset] === 'undefined') {
+        if (typeof charset === 'undefined' || typeof this.options.chars[charset] === 'undefined') {
             charset = 'good';
         }
 
-        return this.chars[charset].charAt(getRandomIntInclusive(0, (this.chars[charset].length - 1)));
+        return this.options.chars[charset].charAt(getRandomIntInclusive(0, (this.options.chars[charset].length - 1)));
     },
 
     drawSectors: function() {
@@ -112,13 +112,13 @@ var hexGrid = {
                 this.drawSector(coordX, coordY);
 
                 // Calculate the position for the next node
-                coordX += this.sector.width;
+                coordX += this.options.sector.width;
             }
             // Set the X coordinate back to zero
             coordX = this.origin.x;
 
             // Jump one row down
-            coordY += this.sector.height
+            coordY += this.options.sector.height
         }
     },
 
@@ -132,11 +132,11 @@ var hexGrid = {
         var textCharset = (corruptSector) ? 'corrupt':'good';
 
         this.context.fillStyle = colourSector;
-        this.context.fillRect(coordX, coordY, this.sector.width, this.sector.height);
+        this.context.fillRect(coordX, coordY, this.options.sector.width, this.options.sector.height);
 
         // Calculate the text positions
-        var textCoordX = (coordX + (this.sector.width / 2));
-        var textCoordY = (coordY + (this.sector.height / 2) + 4);
+        var textCoordX = (coordX + (this.options.sector.width / 2));
+        var textCoordY = (coordY + (this.options.sector.height / 2) + 4);
 
         // Draw the text
         this.context.fillStyle = colourText;
@@ -145,8 +145,8 @@ var hexGrid = {
 
     getRandomSectorLocation: function() {
         return {
-            x: this.sector.width * (Math.floor(Math.random() * (this.canvas.width / this.sector.width)) - 1),
-            y: this.sector.height * (Math.floor(Math.random() * (this.canvas.height / this.sector.height)) - 1)
+            x: this.options.sector.width * (Math.floor(Math.random() * (this.canvas.width / this.options.sector.width)) - 1),
+            y: this.options.sector.height * (Math.floor(Math.random() * (this.canvas.height / this.options.sector.height)) - 1)
         };
     }
 
