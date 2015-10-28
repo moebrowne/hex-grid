@@ -16,8 +16,10 @@ var hexGrid = {
         randomChange: true,
         changeInterval: 100, //ms
 
-        corruptionEnabled: true,
-        corruptionPercentage: 3, //%
+        corruption: {
+            enabled: true,
+            percentage: 3 //%
+        },
 
         chars:  {
             'good': '1234567890ABCDEF',
@@ -69,7 +71,7 @@ var hexGrid = {
                 var position = this.getRandomSectorLocation();
 
                 // Determine whether this sector is corrupt or not
-                var corrupt = (this.options.corruptionEnabled === true && getRandomIntInclusive(0, 100) < this.options.corruptionPercentage);
+                var corrupt = (this.options.corruption.enabled === true && getRandomIntInclusive(0, 100) < this.options.corruption.percentage);
 
                 this.drawSector(position.x, position.y, corrupt);
             }.bind(this), this.options.changeInterval);
