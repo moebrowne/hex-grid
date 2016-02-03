@@ -20,3 +20,7 @@ The library will automatically size the canvas so that it fills the window
 ### Options
 
 There is an `options` property of the hexGrid object that contains a number of variables that can be used to change the way the grid is rendered
+
+### Screen Shot
+
+![Hex Grid In Action](hexgrid.gif)
